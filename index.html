@@ -1071,30 +1071,6 @@
     scrollableElements.forEach(element => {
       element.style.webkitOverflowScrolling = 'touch';
     });
-    
-    // Prevent rubber band scrolling
-    document.addEventListener('touchmove', function(e) {
-      if (e.scale !== 1) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-    
-    // Optimize touch events
-    let touchStartY = 0;
-    document.addEventListener('touchstart', function(e) {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    
-    document.addEventListener('touchmove', function(e) {
-      const touchY = e.touches[0].clientY;
-      const touchDiff = touchY - touchStartY;
-      
-      if (document.body.scrollTop === 0 && touchDiff > 0) {
-        e.preventDefault();
-      } else if (document.body.scrollHeight <= document.body.scrollTop + document.body.offsetHeight && touchDiff < 0) {
-        e.preventDefault();
-      }
-    }, { passive: false });
   });
 </script>
 <link rel="stylesheet" href="/index.css">
